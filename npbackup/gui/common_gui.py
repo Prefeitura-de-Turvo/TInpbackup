@@ -1095,6 +1095,19 @@ def retention_col():
                             key="repo_opts.retention_policy.ntp_server", size=(50, 1)
                         ),
                     ],
+                    [
+                        sg.Image(
+                            NON_INHERITED_ICON,
+                            key="inherited.repo_opts.retention_policy.abort_on_ntp_failure",
+                            tooltip=_t("config_gui.group_inherited"),
+                            pad=1,
+                        ),
+                        sg.Checkbox(
+                            _t("config_gui.abort_on_ntp_failure"),
+                            key="repo_opts.retention_policy.abort_on_ntp_failure",
+                            size=(100, 1),
+                        ),
+                    ],
                 ],
                 visible=False,
                 key="-RETENTION-POLICY-ADVANCED-COLUMN-",

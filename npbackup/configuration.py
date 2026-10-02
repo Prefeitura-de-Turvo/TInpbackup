@@ -225,6 +225,8 @@ empty_config_dict = {
                     "group_by_tags": True,
                     "group_by_paths": False,
                     "ntp_server": None,
+                    # When True, retention policy is not applied if the NTP offset cannot be obtained (NPF-SEC-00010)
+                    "abort_on_ntp_failure": False,
                 },
                 "prune_max_unused": "0 B",  # allows BytesConverter units, but also allows percents, ie 10%
                 "prune_max_repack_size": None,  # allows BytesConverter units
