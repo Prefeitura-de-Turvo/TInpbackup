@@ -66,6 +66,7 @@ groups:
         apply_on_tags: []
         keep_within: true
         ntp_server:
+        abort_on_ntp_failure: false
       compression: auto
     env:
       env_variables: {}

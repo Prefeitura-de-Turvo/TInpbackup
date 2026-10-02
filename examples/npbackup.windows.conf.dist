@@ -70,6 +70,7 @@ groups:
         group_by_tags: true
         group_by_paths: false
         ntp_server:
+        abort_on_ntp_failure: false
       prune_max_unused: 0 B
       prune_max_repack_size:
     prometheus:

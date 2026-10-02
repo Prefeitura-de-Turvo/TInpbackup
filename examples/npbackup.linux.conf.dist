@@ -47,7 +47,7 @@ groups:
       post_exec_failure_is_fatal: false
       post_exec_execute_even_on_backup_error: true
       post_backup_housekeeping_percent_chance: 0
-      post_backup_housekeeping_interval: 0																						  
+      post_backup_housekeeping_interval: 0
     repo_opts:
       repo_password:
       repo_password_command:
@@ -71,6 +71,7 @@ groups:
         group_by_tags: true
         group_by_paths: false
         ntp_server:
+        abort_on_ntp_failure: false
       prune_max_unused: 0 B
       prune_max_repack_size:
     prometheus:
