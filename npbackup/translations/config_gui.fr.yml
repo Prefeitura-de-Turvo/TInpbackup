@@ -150,8 +150,9 @@ fr:
   yearly: annuelles
   keep_within: Garder les sauvegardes dans une période relative à la dernière sauvegarde
   keep_tags: Toujours garder ces étiquettes
-  apply_on_tags: Ne jamais appliquer sur ces étiquettes
+  apply_on_tags: Appliquer uniquement sur ces étiquettes
   optional_ntp_server_uri: URI optionnelle serveur NTP
+  abort_on_ntp_failure: Ne pas appliquer la politique de rétention si le serveur NTP est injoignable
   gfs: Garder selon la stratégie GFS (30 jours, 4 semaines, 12 mois et 2 ans)
   90d: Garder les derniers 90 jours
   30d: Garder les derniers 30 jours

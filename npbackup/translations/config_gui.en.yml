@@ -149,8 +149,9 @@ en:
   yearly: yearly
   keep_within: Keep backups within time period relative to current backup
   keep_tags: Always keep these tags
-  apply_on_tags: Never apply on these tags
+  apply_on_tags: Apply only on these tags
   optional_ntp_server_uri: Optional NTP server URI
+  abort_on_ntp_failure: Do not apply retention policy when NTP server cannot be reached
   gfs: GFS backup retention (30 days, 4 weeks, 12 months and 2 years)
   90d: Keep last 90 Days of backups
   30d: Keep last 30 Days of backups
