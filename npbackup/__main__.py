@@ -58,6 +58,10 @@ This program is distributed under the GNU General Public License and comes with 
 This is free software, and you are welcome to redistribute it under certain conditions; Please type --license for more info.""",
     )
 
+    # Only one operation per run: the dispatch below is an if/elif chain, so a
+    # second operation flag would otherwise be silently ignored
+    operations = parser.add_mutually_exclusive_group()
+
     parser.add_argument(
         "-c",
         "--config-file",
@@ -88,7 +92,7 @@ This is free software, and you are welcome to redistribute it under certain cond
         default=False,
         help="List selected repositories and groups when using --repo-name and/or --repo-group.",
     )
-    parser.add_argument("-b", "--backup", action="store_true", help="Run a backup")
+    operations.add_argument("-b", "--backup", action="store_true", help="Run a backup")
     parser.add_argument(
         "-f",
         "--force",
@@ -96,7 +100,7 @@ This is free software, and you are welcome to redistribute it under certain cond
         default=False,
         help="Force running a backup regardless of existing backups age (This is not the same as restic's own --force)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "-r",
         "--restore",
         type=str,
@@ -104,14 +108,14 @@ This is free software, and you are welcome to redistribute it under certain cond
         required=False,
         help="Restore to path given by --restore, add --snapshot-id to specify a snapshot other than latest",
     )
-    parser.add_argument(
+    operations.add_argument(
         "-s",
         "--snapshots",
         action="store_true",
         default=False,
         help="Show current snapshots",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--ls",
         type=str,
         required=False,
@@ -119,47 +123,47 @@ This is free software, and you are welcome to redistribute it under certain cond
         const="latest",
         help="Show content given snapshot. When no snapshot id is given, latest is used",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--find",
         type=str,
         default=None,
         required=False,
         help="Find full path of given file / directory",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--forget",
         type=str,
         default=None,
         required=False,
         help="Forget given snapshot (accepts comma separated list of snapshots)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--forget-snapshots-with-tags",
         type=str,
         default=None,
         required=False,
         help="Forget all snapshots that correspond to given tags (accepts comma separated list of tags)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--policy",
         action="store_true",
         default=False,
         help="Apply retention policy to snapshots (forget snapshots)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--housekeeping",
         action="store_true",
         default=False,
         help="Run --check quick, --policy and --prune in one go",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--check",
         type=str,
         default=None,
         required=False,
         help="Checks the repository. Valid arguments are 'quick' (metadata check) and 'full' (metadata + data check)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--prune",
         type=str,
         default=None,
@@ -167,8 +171,8 @@ This is free software, and you are welcome to redistribute it under certain cond
         nargs="?",
         help="Prune data in repository, also accepts max parameter in order to prune reclaiming maximum space",
     )
-    parser.add_argument("--unlock", action="store_true", help="Unlock repository")
-    parser.add_argument(
+    operations.add_argument("--unlock", action="store_true", help="Unlock repository")
+    operations.add_argument(
         "--repair",
         type=str,
         default=None,
@@ -177,24 +181,24 @@ This is free software, and you are welcome to redistribute it under certain cond
             "Repair the repository. Valid arguments are 'index', 'snapshots', or 'packs,comma_separated_pack_ids'"
         ),
     )
-    parser.add_argument(
+    operations.add_argument(
         "--recover", action="store_true", help="Recover lost repo snapshots"
     )
-    parser.add_argument(
+    operations.add_argument(
         "--list",
         type=str,
         default=None,
         required=False,
         help="Show [blobs|packs|index|snapshots|keys|locks] objects",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--dump",
         type=str,
         default=None,
         required=False,
         help="Dump a specific file to stdout (full path given by --ls), use with --dump [file], add --snapshot-id to specify a snapshot other than latest",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--stats",
         type=str,
         nargs="?",
@@ -202,7 +206,7 @@ This is free software, and you are welcome to redistribute it under certain cond
         required=False,
         help='Get repository statistics. If snapshot id is given, only snapshot statistics will be shown. You may also pass "--mode raw-data" or "--mode debug" (with double quotes) to get full repo statistics',
     )
-    parser.add_argument(
+    operations.add_argument(
         "--keys",
         type=str,
         nargs="?",
@@ -210,19 +214,19 @@ This is free software, and you are welcome to redistribute it under certain cond
         required=False,
         help="List keys in the repository, also takes optional add=<password>,<user> or remove=<keyid> to add or remove a key",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--raw",
         type=str,
         default=None,
         required=False,
         help='Run raw command against backend. Use with --raw "my raw backend command"',
     )
-    parser.add_argument(
+    operations.add_argument(
         "--init",
         action="store_true",
         help="Manually initialize a repo (is done automatically on first backup)",
     )
-    parser.add_argument(
+    operations.add_argument(
         "--has-recent-snapshot",
         action="store_true",
         help="Check if a recent snapshot exists",
